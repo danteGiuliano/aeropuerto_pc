@@ -31,14 +31,13 @@ public class Aeropuerto {
         //Designacion de que puesto debe ir con arrays
         //Por el enunciado , se debe genrerar de manera aleatoria 
         unPasajero.asignarPuesto(Math.round(puestos.length));
-
-        while(!puestos[unPasajero.getPuesto()].esperaFila()){
+        while(!puestos[unPasajero.getPuesto()].esperaFila(unPasajero)){
            Hall.esperaPorHall();
         }
     }
 
     public void estacionTren(Pasajero unPasajero)throws Exception{
-        estacion.tomarTren();
+        estacion.tomarTren(unPasajero);
     }
 
 

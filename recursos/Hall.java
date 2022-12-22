@@ -7,7 +7,8 @@ public class Hall {
      * en un poco de tiempo
      */
 
-    public static void esperaPorHall(){
-
+    public static void esperaPorHall()throws Exception
+    {
+        Thread.sleep(1000);
     }
 }

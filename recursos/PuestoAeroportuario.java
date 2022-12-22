@@ -1,6 +1,9 @@
 package recursos;
 
+import java.util.concurrent.Exchanger;
 import java.util.concurrent.Semaphore;
+
+import hilos.Pasajero;
 
 public class PuestoAeroportuario {
     /**
@@ -12,6 +15,7 @@ public class PuestoAeroportuario {
     private int capacidadActual;
     private Semaphore cola;
     private Semaphore mutex;
+    private Exchanger<String> boleto;
 
     public PuestoAeroportuario(int CAPACIDAD_MAXIMA) {
         this.CAPACIDAD_MAXIMA = CAPACIDAD_MAXIMA;
@@ -20,12 +24,13 @@ public class PuestoAeroportuario {
         this.mutex = new Semaphore(1);
     }
 
-    public boolean esperaFila() throws Exception {
+    public boolean esperaFila(Pasajero unPasajero) throws Exception {
         this.mutex.acquire();
         if (this.capacidadActual + 1 <= CAPACIDAD_MAXIMA) {
             capacidadActual++;
             this.mutex.release();
             cola.acquire();
+            unPasajero.obtenerTicket(boleto.exchange(unPasajero.getPuesto()+""));
             return true;
         } else {
             this.mutex.release();
@@ -33,9 +38,12 @@ public class PuestoAeroportuario {
         }
     }
 
-    public void atenderPasajero() throws Exception {
+
+    //Aca usar el exchange entre pasajero y guardia
+    public void atenderPasajero(Terminal uTerminal) throws Exception {
         this.mutex.acquire();
         if(this.capacidadActual>0){
+            boleto.exchange(uTerminal.salidaDisponible());
             this.cola.release(1);
             this.capacidadActual--;
         }

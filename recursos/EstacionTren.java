@@ -1,26 +1,29 @@
 package recursos;
 
 import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
+
+
+import hilos.Pasajero;
+import hilos.Viaje;
 
 public class EstacionTren {
     /**
      * Clase que modela la estacion de tren, desde su partida hasta la llegada a las terminales
      */
-
-     private CyclicBarrier capacidadTren;
+     Viaje viaje = new Viaje(this);
+     private CyclicBarrier tren;
+     
      
 
      public EstacionTren(int capacidadTren){
-        this.capacidadTren=new CyclicBarrier(capacidadTren);
-        
+        this.tren=new CyclicBarrier(capacidadTren, viaje);
      }
 
     
-
-    public void tomarTren() throws Exception{
-        this.capacidadTren.await();    
+        //Pensar una manera dinamica de crear terminales , y que los pasajeros se bajen en esa
+        
+    public void tomarTren(Pasajero unPasajero) throws Exception{
+        this.tren.await();    
     }
+
 }

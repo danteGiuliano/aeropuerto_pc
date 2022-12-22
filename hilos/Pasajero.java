@@ -6,6 +6,7 @@ public class Pasajero implements Runnable {
 
     private Aeropuerto aeropuerto;
     private int puesto=-1;
+    private String ticket="";
 
     @Override
     public void run() {
@@ -24,6 +25,9 @@ public class Pasajero implements Runnable {
     }
     public int getPuesto(){
         return puesto;
+    }
+    public void obtenerTicket(String ticket){
+        this.ticket=ticket;
     }
 
 }
