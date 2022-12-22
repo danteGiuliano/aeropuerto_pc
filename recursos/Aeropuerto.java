@@ -36,8 +36,8 @@ public class Aeropuerto {
         }
     }
 
-    public void estacionTren(Pasajero unPasajero)throws Exception{
-        estacion.tomarTren(unPasajero);
+    public Terminal estacionTren(Pasajero unPasajero)throws Exception{
+       return estacion.tomarTren(unPasajero);
     }
 
 
