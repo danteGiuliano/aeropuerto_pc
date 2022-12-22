@@ -1,5 +1,7 @@
 package recursos;
 
+import java.util.ArrayList;
+
 import hilos.Pasajero;
 import hilos.Reloj;
 
@@ -8,11 +10,12 @@ public class Aeropuerto {
     private Reloj reloj;
     private PuestoAeroportuario []puestos;
     private EstacionTren estacion;
-    private Hall hall;
+    private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 
-    public Aeropuerto(Reloj reloj,PuestoAeroportuario puestoAeroportuario[]){
+    public Aeropuerto(Reloj reloj,PuestoAeroportuario puestoAeroportuario[], ArrayList terminales){
         this.reloj=reloj;
         this.puestos=puestoAeroportuario;
+        this.terminales=terminales;
     }
 
 
