@@ -21,7 +21,7 @@ public class Guardia implements Runnable {
             System.out.println("GUARDIA :"+Thread.currentThread().getName()+" INICIADO");
             Thread.sleep(100);
             while(true){
-                this.puesto.atenderPasajero(terminales.get(1));
+                this.puesto.atenderPasajero(terminales.get((int) (Math.random()*(terminales.size()-0.1))));
                 Thread.sleep(1000);
             }           
         } catch (Exception e) {

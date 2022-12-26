@@ -2,26 +2,27 @@ package recursos;
 
 import java.util.ArrayList;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
 
 import hilos.Pasajero;
-import hilos.Viaje;
 
 public class EstacionTren {
     /**
      * Clase que modela la estacion de tren, desde su partida hasta la llegada a las
      * terminales
      */
-    Viaje viaje;
     private CyclicBarrier tren;
     ArrayList<Terminal> terminales;
     private ReentrantLock mutex = new ReentrantLock();
+    private Semaphore launch = new Semaphore(0);
+    
+    private int capacidadTren;
 
     public EstacionTren(int capacidadTren, ArrayList<Terminal> terminales) {
         this.terminales = terminales;
-        this.viaje = new Viaje(this, this.terminales);
-        this.tren = new CyclicBarrier(capacidadTren, viaje);
-        
+        this.capacidadTren=capacidadTren;
+        this.tren = new CyclicBarrier(capacidadTren);
     }
 
 
@@ -38,10 +39,12 @@ public class EstacionTren {
         return uT;
     }
     public void esperaTren()throws Exception{
+        if(this.tren.getNumberWaiting()+1==this.capacidadTren){this.launch.release();}
         this.tren.await();
     }
 
-    public void salidaTren(){
+    public void salidaTren()throws Exception{
+        this.launch.acquire();
         this.mutex.lock();
     }
     public void llegadaTren(){

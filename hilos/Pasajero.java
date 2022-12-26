@@ -22,7 +22,7 @@ public class Pasajero implements Runnable {
             aeropuerto.entradaAeropuerto(this);
             aeropuerto.puestoInforme(this);
             Terminal uT = aeropuerto.estacionTren(this);
-            System.out.println("ESpera el tren");
+            System.out.println("ESpera el tren TERMINAL ASOCIADA "+this.terminalAsociada());
             aeropuerto.esperaTren();
             uT.decensoPasajero();
             // Modelar la terminal 

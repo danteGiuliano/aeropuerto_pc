@@ -63,6 +63,7 @@ public class Terminal {
     public void decensoPasajero() throws Exception {
         this.mutex.lock();
         while (!llegada) {
+            System.out.println("Espera al tren");
             this.llegadaTren.await(); //Espera a que el tren llegue a la parada correspondiente
         }
         // Desiendo de la terminal

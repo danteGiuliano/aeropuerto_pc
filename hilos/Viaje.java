@@ -19,18 +19,21 @@ public class Viaje implements Runnable {
     public void run() {
         try {
             System.out.println("VIAJE :" + Thread.currentThread().getName() + " INICIADO");
-            estacion.salidaTren();
-            terminales.forEach(t -> {
-                try {
-                    System.out.println("LLEGADA A PARADA " + t.getID() + " Espera pasajeros");
-                    t.llegadaTren();
-                    t.parada();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            estacion.llegadaTren();
-            System.out.println("VIAJE :" + Thread.currentThread().getName() + " TERMINADO");
+            while (true) {
+                estacion.salidaTren();
+                Thread.sleep(100);
+                terminales.forEach(t -> {
+                    try {
+                        System.out.println("LLEGADA A PARADA " + t.getID() + " Espera pasajeros");
+                        t.llegadaTren();
+                        t.parada();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                estacion.llegadaTren();
+                System.out.println("VIAJE :" + Thread.currentThread().getName() + " TERMINADO");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

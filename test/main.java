@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import hilos.Guardia;
 import hilos.Pasajero;
 import hilos.Reloj;
+import hilos.Viaje;
 import recursos.Aeropuerto;
 import recursos.EstacionTren;
 import recursos.PuestoAeroportuario;
@@ -20,6 +21,8 @@ class main {
         Reloj reloj = new Reloj();
         EstacionTren estacionTren = new EstacionTren(10, terminales);
         Aeropuerto aeropuerto = new Aeropuerto(reloj, puestosAeroportuarios,estacionTren);
+
+        hilos.add(new Thread(new Viaje(estacionTren, terminales)));
 
         // Crear pasajeros
         for (int i = 0; i < 12; i++) {
