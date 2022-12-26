@@ -22,32 +22,70 @@ public class Terminal {
         this.IDTERMINAL = IDTERMINAL;
     }
 
-    /* Le da una salida disponible al guardia, para que le de al pasajero */
-    public String salidaDisponible() {
-        return this.IDTERMINAL + "-" + Math.round(Math.abs(salidaMinima - salidaMaxima)) + salidaMinima;
+    public String getID(){
+        return this.IDTERMINAL;
     }
 
-    /* El Guardia avisa de un nuevo arribo de pasajero */
+
+
+
+
+
+    //---------------- GUARDIA ______________________________________________________
+
+
+
+    /* Le da una salida disponible al guardia, para que le de al pasajero */
+    public String salidaDisponible() {
+        return this.IDTERMINAL+"-";
+        //+ "-" + Math.round(Math.abs(salidaMinima - salidaMaxima)) + salidaMinima;
+    }
+
+
+
+
+
+    //----------------- PASAJERO ____________________________________________________
+
+
+
+    /**
+     * Aviso de un nuevo arribo a la terminal correspondiente con el ticket
+     */
+
     public void nuevoArribo() {
         mutex.lock();
         arriboPasajero++;
         mutex.unlock();
     }
 
+
     public void decensoPasajero() throws Exception {
         this.mutex.lock();
         while (!llegada) {
-            this.llegadaTren.await();
+            this.llegadaTren.await(); //Espera a que el tren llegue a la parada correspondiente
         }
         // Desiendo de la terminal
+        System.out.println("Pasajero bajando: " );
         this.arriboPasajero--;
         this.salidaTerminal.signal();
         this.mutex.unlock();
 
     }
 
+
+//---------------------VIAJE _________________________________________________________
+
+
+    /**
+     * Metodo de TREN
+     * 
+     * 
+     * @throws Exception
+     */
     public void parada() throws Exception {
         this.mutex.lock();
+        System.out.println("PASAJEROS PARA BAJAR :"+arriboPasajero);
         while (arriboPasajero > 0) {
             salidaTerminal.await();
         }
@@ -62,5 +100,3 @@ public class Terminal {
         this.mutex.unlock();
     }
 }
-
-// Usar monitores con condicions para el tren

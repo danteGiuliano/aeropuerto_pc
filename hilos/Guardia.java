@@ -9,7 +9,7 @@ public class Guardia implements Runnable {
     private PuestoAeroportuario puesto;
     private ArrayList<Terminal> terminales = new ArrayList<Terminal>();
 
-    public Guardia(PuestoAeroportuario puesto,ArrayList terminales){
+    public Guardia(PuestoAeroportuario puesto,ArrayList<Terminal> terminales){
         this.puesto=puesto;
         this.terminales=terminales;
     }
@@ -18,9 +18,11 @@ public class Guardia implements Runnable {
     @Override
     public void run() {
         try {
+            System.out.println("GUARDIA :"+Thread.currentThread().getName()+" INICIADO");
+            Thread.sleep(100);
             while(true){
-                this.puesto.atenderPasajero(terminales.get(Math.round(terminales.size())));
-                Thread.sleep(4000);
+                this.puesto.atenderPasajero(terminales.get(1));
+                Thread.sleep(1000);
             }           
         } catch (Exception e) {
 
