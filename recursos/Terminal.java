@@ -4,8 +4,12 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Terminal {
-    private int salidaMinima;
-    private int salidaMaxima;
+
+    FreeShop freeShop;
+
+
+    private int salidaMinima; //Numero Random
+    private int salidaMaxima; //Numero Random
     private int arriboPasajero;
     private String IDTERMINAL;
 
@@ -15,7 +19,8 @@ public class Terminal {
 
     private boolean llegada = false;
 
-    public Terminal(int salidaMinima, int salidaMaxima, String IDTERMINAL) {
+    public Terminal(int salidaMinima, int salidaMaxima, String IDTERMINAL,FreeShop freeShop) {
+        this.freeShop = freeShop;
         this.salidaMinima = salidaMinima;
         this.salidaMaxima = salidaMaxima;
         arriboPasajero = 0;
@@ -25,8 +30,6 @@ public class Terminal {
     public String getID(){
         return this.IDTERMINAL;
     }
-
-
 
 
 

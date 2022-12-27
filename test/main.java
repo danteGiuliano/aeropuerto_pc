@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
+import hilos.Caja;
 import hilos.Guardia;
 import hilos.Pasajero;
 import hilos.Reloj;
 import hilos.Viaje;
 import recursos.Aeropuerto;
 import recursos.EstacionTren;
+import recursos.FreeShop;
 import recursos.PuestoAeroportuario;
 import recursos.Terminal;
 
@@ -29,10 +31,7 @@ class main {
            hilos.add(new Thread(new Pasajero(aeropuerto)));
         }
 
-
         //RUN hilos
-
-
 
         hilos.forEach(e->e.start());
 
@@ -41,12 +40,27 @@ class main {
     private static void crearTerminales() {
 
         //Por cada terminal, se genera una nueva posta en el viaje
+        FreeShop f1 = new FreeShop(10);
+        FreeShop f2 = new FreeShop(15);
+        FreeShop f3 = new FreeShop(4);
+        crearCajeros(f1);
+        crearCajeros(f2);
+        crearCajeros(f3);
+
         
-        terminales.add(new Terminal(0, 5, "A"));
-        terminales.add(new Terminal(6, 8, "B"));
-        terminales.add(new Terminal(9, 14, "C"));
+        terminales.add(new Terminal(0, 5, "A",f1));
+        terminales.add(new Terminal(6, 8, "B",f2));
+        terminales.add(new Terminal(9, 14, "C",f3));
 
     }
+
+    private static void crearCajeros(FreeShop freeShop){
+        hilos.add(new Thread(new Caja(freeShop,1)));
+        hilos.add(new Thread(new Caja(freeShop,2)));
+
+    }
+
+
 
     private static void crearPuestosAeroportuarios() {
 
