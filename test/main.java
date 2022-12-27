@@ -24,10 +24,11 @@ class main {
         EstacionTren estacionTren = new EstacionTren(10, terminales);
         Aeropuerto aeropuerto = new Aeropuerto(reloj, puestosAeroportuarios,estacionTren);
 
+        hilos.add(new Thread(reloj));
         hilos.add(new Thread(new Viaje(estacionTren, terminales)));
 
         // Crear pasajeros
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i <40; i++) {
            hilos.add(new Thread(new Pasajero(aeropuerto)));
         }
 
@@ -69,10 +70,9 @@ class main {
         puestosAeroportuarios = new PuestoAeroportuario[CANTIDAD_PUESTOS_Y_GUARDIAS];
 
         for (int i = 0; i < puestosAeroportuarios.length; i++) {
-            puestosAeroportuarios[i]=new PuestoAeroportuario(30);
+            puestosAeroportuarios[i]=new PuestoAeroportuario(10);
             hilos.add(new Thread(new Guardia(puestosAeroportuarios[i], terminales)));
         }
-
 
     }
 

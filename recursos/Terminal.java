@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Terminal {
 
-    FreeShop freeShop;
+   public FreeShop freeShop;
 
 
     private int salidaMinima; //Numero Random
@@ -78,6 +78,8 @@ public class Terminal {
     }
 
 
+
+
 //---------------------VIAJE _________________________________________________________
 
 
@@ -89,10 +91,11 @@ public class Terminal {
      */
     public void parada() throws Exception {
         this.mutex.lock();
-        System.out.println("PASAJEROS PARA BAJAR :"+arriboPasajero);
+        System.out.println("PASAJEROS PARA BAJAR :"+this.arriboPasajero);
         while (arriboPasajero > 0) {
             salidaTerminal.await();
         }
+        this.llegada=false;
         this.mutex.unlock();
 
     }

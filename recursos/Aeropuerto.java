@@ -18,6 +18,7 @@ public class Aeropuerto {
         this.reloj=reloj;
         this.puestos=puestoAeroportuario;
         this.estacion=estacion;
+        this.reloj.setAeropuerto(this);
     }
 
 
@@ -25,6 +26,7 @@ public class Aeropuerto {
     public void entradaAeropuerto(Pasajero unPasajero)throws Exception {
         //se habre la puerta a un determinado horario
         reloj.horarioLaboral(unPasajero); 
+        System.out.println("Nuevo pasajero: "+Thread.currentThread().getName());
     }
 
 
@@ -32,9 +34,10 @@ public class Aeropuerto {
         //Designacion de que puesto debe ir con arrays
         //Por el enunciado , se debe genrerar de manera aleatoria 
         mutex.acquire();
-        unPasajero.asignarPuesto(Math.round(puestos.length-1));
+        unPasajero.asignarPuesto(Math.round(this.puestos.length-1));
         mutex.release();
-        while(!puestos[unPasajero.getPuesto()].esperaFila(unPasajero)){
+        while(!this.puestos[unPasajero.getPuesto()].esperaFila(unPasajero)){
+            //unPasajero.getPuesto()
            Hall.esperaPorHall();
         }
     }

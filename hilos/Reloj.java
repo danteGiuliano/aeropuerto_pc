@@ -1,10 +1,13 @@
 package hilos;
 
+import recursos.Aeropuerto;
 
 public class Reloj implements Runnable{
     
     private boolean abierto=true;
     private String log="";
+    private Aeropuerto aeropuerto;
+
     @Override
     public void run() {
 
@@ -14,14 +17,14 @@ public class Reloj implements Runnable{
             while(true){
                 if(abierto){
                     synchronized (this){
-                       // System.out.println("AEROPUERTO CERRADO");
-                        Thread.sleep(3000);
+                       System.out.println("AEROPUERTO CERRADO");
+                        Thread.sleep(12000);
                         abierto=false;
                     }
                 }
                 else{
-                   // System.out.println("AEROPUERTO ABIERTO");
-                    Thread.sleep(20000);
+                   System.out.println("AEROPUERTO ABIERTO");
+                    Thread.sleep(15000);
                     abierto=true;
                 }
             }
@@ -29,6 +32,10 @@ public class Reloj implements Runnable{
             e.printStackTrace();
                 }
         
+    }
+
+    public void setAeropuerto(Aeropuerto aeropuerto){
+        this.aeropuerto=aeropuerto;
     }
 
 
